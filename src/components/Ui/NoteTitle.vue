@@ -24,12 +24,12 @@
 </template>
 
 <script>
-  import IconButton from "../components/IconButton"
+  import IconButton from "../Ui/IconButton.vue"
   
   export default {
     name: "NoteTitle",
     components: {
-      "icon-button": IconButton
+      IconButton
     },
     props: {
       note: Object

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import IconButton from "../components/IconButton";
+import IconButton from "../Ui/IconButton.vue"
 
 
 export default {
@@ -42,7 +42,7 @@ export default {
     note: Object,
   },
   components: {
-    "icon-button": IconButton,
+    IconButton,
   },
   methods: {
     goToNote() {

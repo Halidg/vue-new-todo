@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import NoteCard from "../components/NoteCard";
+import NoteCard from "../components/Ui/NoteCard"
 import { NoteService } from '../services/NoteService' 
-import Confirm from '../components/Confirm'
+import Confirm from '../components/Modal/Confirm'
 import { create } from 'vue-modal-dialogs'
-import IconButton from '../components/IconButton'
+import IconButton from '../components/Ui/IconButton'
 
 const confirm = create(Confirm, 'title', 'content')
 

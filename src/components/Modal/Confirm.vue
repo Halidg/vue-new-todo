@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import IconButton from '../components/IconButton'
+import IconButton from '../Ui/IconButton.vue'
 
 export default {
   name: "Confirm",
@@ -50,7 +50,7 @@ export default {
 }
 .modal-dialog {
   width: 30rem;
-  background: rgb(255, 255, 255);
+  background: #FFF;
   padding: 1.5rem 2rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 0.3rem;

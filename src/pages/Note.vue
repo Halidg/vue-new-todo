@@ -50,13 +50,13 @@
 </template>
 
 <script>
-import TodoItem from "../components/TodoItem";
+import TodoItem from "../components/Ui/TodoItem"
 import { NoteService } from '../services/NoteService'
 import { random } from '../utils'  
-import Confirm from '../components/Confirm'
+import Confirm from '../components/Modal/Confirm'
 import { create } from 'vue-modal-dialogs'
-import NoteTitle from '../components/NoteTitle'
-import IconButton from '../components/IconButton'
+import NoteTitle from '../components/Ui/NoteTitle'
+import IconButton from '../components/Ui/IconButton'
 
 const confirm = create(Confirm, 'title', 'content')
 
@@ -81,7 +81,6 @@ export default {
     if (this.noteId) {
       this.note = NoteService.getItemById(this.noteId)
     } else {
-      
       this.note = {
         noteId: "",
         title: "",

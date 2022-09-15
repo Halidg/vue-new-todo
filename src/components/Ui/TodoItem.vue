@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import IconButton from "../components/IconButton";
+import IconButton from "../Ui/IconButton.vue"
 
 export default {
   name: "TodoItem",
   components: {
-    "icon-button": IconButton,
+    IconButton,
   },
   props: {
     todo: Object,
