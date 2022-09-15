@@ -28,7 +28,6 @@
         Удалить заметку
         </icon-button>
     </div>
-    <hr />
   </div>
 </template>
 

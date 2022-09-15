@@ -9,6 +9,12 @@
         :disabled="!(this.historyIndex > 0)"
         label="Undo"
         />
+        <icon-button 
+        @action="redo" 
+        type="redo"
+        :disabled="!(this.historyIndex < (this.noteHistory.length - 1))"
+        label="Redo"
+      />  
     </div>
     <ul>
       <todo-item
@@ -28,7 +34,6 @@
       <span @click="addTodo">Добавить ToDo</span>
     </div>
     <hr />
-    <div>
       <icon-button 
         color="green" 
         type="save" 
@@ -44,8 +49,6 @@
         type="delete" 
         @action="handleDeleteNote"
         label="Delete"></icon-button>
-    </div>
-    <hr />
   </div>
 </template>
 
@@ -127,7 +130,13 @@ export default {
         this.note = this.noteHistory[this.historyIndex];
       }
     },
-     
+    redo() {
+      this.watching = false;
+      if (this.historyIndex < (this.noteHistory.length - 1)) {
+        this.historyIndex += 1;
+        this.note = this.noteHistory[this.historyIndex];
+      }
+    },
     async handleDeleteNote(noteId){
       if (await confirm('Вы действительно хотите удалить заметку?')) {
         this.deleteNote(noteId)

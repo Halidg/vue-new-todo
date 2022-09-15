@@ -8,7 +8,6 @@
         @action="$router.push('/note')"
         label="Add"
         ></icon-button>
-      <hr />
     </div>
     <div>
       <note-card

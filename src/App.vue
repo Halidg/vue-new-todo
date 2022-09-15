@@ -4,7 +4,6 @@
       <router-link class="router-link" to="/" exact>Лист заметок</router-link>
       <router-link class="router-link" to="/note" exact>Создать заметку</router-link>
     </nav>
-    <hr/>
     <router-view/>
     <dialogs-wrapper transition-name="fade"></dialogs-wrapper>
   </div>
@@ -49,8 +48,8 @@ nav{
   font-size: 22px;
 }
 .router-link-active{
-  color: green;
-  text-shadow: 0 0 7px rgba(0, 143, 36, 0.5);
+  color: rgb(212, 154, 29);
+  text-shadow: 0 0 7px rgba(129, 143, 0, 0.5);
 }
 hr {
     border: 0;

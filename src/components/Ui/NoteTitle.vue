@@ -17,7 +17,7 @@
       type="text"
       v-model="note.title"
       @keyup.enter="editable = !editable"
-      placeholder="Введите загаловок"
+      placeholder="Введите заголовок"
       v-click-outside="setEditFalse"
     />
   </div>

@@ -65,6 +65,7 @@ export default {
 <style scoped>
 span{
   word-wrap: none;
+  font-size: 12px;
 }
 li {
   display: flex;
