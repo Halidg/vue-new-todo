@@ -11,22 +11,22 @@
       </li>
     </ul>
     <div class="note_actions">
-      <icon-button 
+      <IconButton 
         type="edit" 
         color="orange" 
         @action="goToNote"
         label="Edit Note"
-        >
+      >
         Редактировать заметку
-        </icon-button>
-      <icon-button
+      </IconButton>
+      <IconButton
         type="delete_outline"
         color="red"
         @action="$emit('delete-note', note.noteId)"
         label="Delete"
-        >
+      >
         Удалить заметку
-        </icon-button>
+      </IconButton>
     </div>
   </div>
 </template>
@@ -34,24 +34,23 @@
 <script>
 import IconButton from "../Ui/IconButton.vue"
 
-
 export default {
   name: "NoteCard",
   props: {
-    note: Object,
+    note: Object
   },
   components: {
-    IconButton,
+    IconButton
   },
   methods: {
     goToNote() {
-      this.$router.push(`/note/${this.note.noteId}`);
-    },
-  },
-};
+      this.$router.push(`/note/${this.note.noteId}`)
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped>
 .todo-completed {
   text-decoration: line-through;
 }

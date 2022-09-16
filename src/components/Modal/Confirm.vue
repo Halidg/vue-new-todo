@@ -6,18 +6,18 @@
         <p>{{ content }}</p>
       </div>
       <footer class="modal-actions">
-        <icon-button 
+        <IconButton 
           type="check_circle" 
           color="orange" 
           @action="$close(true)"
           label="Confirm">
-        </icon-button>
-        <icon-button 
+        </IconButton>
+        <IconButton
           type="cancel" 
           color="red" 
           @action="$close(false)"
           label="Cancel">
-        </icon-button>
+        </IconButton>
       </footer>
     </div>
   </div>
@@ -29,12 +29,12 @@ import IconButton from '../Ui/IconButton.vue'
 export default {
   name: "Confirm",
   components: {
-    "icon-button": IconButton
+    IconButton
   },
 }
 </script>
 
-<style>
+<style scoped>
 .modal-backdrop {
   background: rgba(78, 78, 78, 0.658);
   position: fixed;
@@ -61,7 +61,7 @@ export default {
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
-.modal-actions{
+.modal-actions {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

@@ -1,21 +1,22 @@
 import { LocalStorageService } from './LocalStorageService'
 export const STORAGE_KEY = 'notes'
+
 export const NoteService = {
-  
-  storeAll (items) {
+  //Хранит все предоставленные элементы заметок
+  storeAll(items) {
     LocalStorageService.setItem(STORAGE_KEY, items)
   },
-  fetchNotes () {
+  getAllNotes() {
     return LocalStorageService.getItem(STORAGE_KEY, [])
   },
-  getItemById (noteId) {
+  getItemById(noteId) {
     const items = LocalStorageService.getItem(STORAGE_KEY, [])
     const index = items.findIndex(i => i.noteId === noteId)
     if (index === -1) return
     return items[index]
   },
-  updateItem (noteId, payload) {
-    const items = NoteService.fetchNotes()
+  updateItem(noteId, payload) {
+    const items = NoteService.getAllNotes()
     const index = items.findIndex(i => i.noteId === noteId)
     if (index === -1) {
       items.push(payload)
@@ -24,8 +25,8 @@ export const NoteService = {
     }
     NoteService.storeAll(items)
   },
-  removeItem (noteId) {
-    const items = NoteService.fetchNotes()
+  removeItem(noteId) {
+    const items = NoteService.getAllNotes()
     const index = items.findIndex(i => i.noteId === noteId)
     items.splice(index, 1)
     NoteService.storeAll(items)

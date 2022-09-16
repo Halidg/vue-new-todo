@@ -19,21 +19,21 @@
         v-click-outside="setEditFalse"
       />
     </div>
-
     <div class="todo-actions">
-      <icon-button
+      <IconButton
         @action="editable = !editable"
         :type="editable ? 'save_alt' : 'edit'"
         :color="editable ? 'green' : 'orange'"
         :label="editable ? 'Save' : 'Edit'"
       >
-      </icon-button>
-      <icon-button
+      </IconButton>
+      <IconButton
         color="red"
         type="delete_forever"
         @action="$emit('remove-todo', todo)"
         label="Delete"
-      ></icon-button>
+      >
+      </IconButton>
     </div>
   </li>
 </template>
@@ -44,26 +44,26 @@ import IconButton from "../Ui/IconButton.vue"
 export default {
   name: "TodoItem",
   components: {
-    IconButton,
+    IconButton
   },
   props: {
-    todo: Object,
+    todo: Object
   },
   data() {
     return {
-      editable: false,
+      editable: false
     };
   },
   methods: {
-    setEditFalse(){
+    setEditFalse() {
       this.editable = false
     }
   }
-};
+}
 </script>
 
 <style scoped>
-span{
+span {
   word-wrap: none;
   font-size: 12px;
 }
@@ -96,11 +96,11 @@ input[type="text"] {
   font-family: cursive, sans-serif;
   color: #8a8a8a;
 }
-div{
+div {
   display: flex;
   justify-content: flex-start;
 }
-.todo-actions{
+.todo-actions {
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;

@@ -3,13 +3,13 @@
     <note-title :note="note"/>
     <hr />
     <div>
-      <icon-button 
+      <IconButton 
         @action="undo" 
         type="undo"
         :disabled="!(this.historyIndex > 0)"
         label="Undo"
         />
-        <icon-button 
+      <IconButton 
         @action="redo" 
         type="redo"
         :disabled="!(this.historyIndex < (this.noteHistory.length - 1))"
@@ -17,7 +17,7 @@
       />  
     </div>
     <ul>
-      <todo-item
+      <TodoItem
         v-for="(todo, index) in note.todos"
         :todo="todo"
         :key="index"
@@ -25,37 +25,37 @@
       />
     </ul>
     <div class="new-todo">
-      <icon-button 
+      <IconButton 
         color="orange" 
         type="add" 
         @action="addTodo"
         label="Add"
-        ></icon-button>
+        ></IconButton>
       <span @click="addTodo">Добавить ToDo</span>
     </div>
     <hr />
-      <icon-button 
+      <IconButton 
         color="green" 
         type="save" 
         @action="saveNote"
-        label="Save"></icon-button>
-      <icon-button 
+        label="Save"></IconButton>
+      <IconButton 
         color="orange" 
         type="cancel" 
         @action="handleCancelEdit"
-        label="Cancel"></icon-button>
-      <icon-button 
+        label="Cancel"></IconButton>
+      <IconButton 
         color="red" 
         type="delete" 
         @action="handleDeleteNote"
-        label="Delete"></icon-button>
+        label="Delete"></IconButton>
   </div>
 </template>
 
 <script>
 import TodoItem from "../components/Ui/TodoItem"
-import { NoteService } from '../services/NoteService'
-import { random } from '../utils'  
+import { NoteService } from '../helpers/NoteService'
+import { random } from '../helpers/utils'  
 import Confirm from '../components/Modal/Confirm'
 import { create } from 'vue-modal-dialogs'
 import NoteTitle from '../components/Ui/NoteTitle'
@@ -76,23 +76,26 @@ export default {
       historyIndex: 0,
       watching: true,
       noteId: '',
-      note: {},
-    };
-  },
-  mounted() {
-    this.noteId = this.$route.params.noteId
-    if (this.noteId) {
-      this.note = NoteService.getItemById(this.noteId)
-    } else {
-      this.note = {
-        noteId: "",
-        title: "",
-        todos: [],
-      }
-      this.note.noteId = random()
+      note: {}
     }
   },
+  mounted() {
+    this.getNoteById()  
+  },
   methods: {
+    getNoteById() {
+      this.noteId = this.$route.params.noteId
+      if (this.noteId) {
+        this.note = NoteService.getItemById(this.noteId)
+      } else {
+        this.note = {
+          noteId: "",
+          title: "",
+          todos: []
+        }
+      this.note.noteId = random()
+    }  
+    },
     addTodo() {
       this.note.todos.push({
         text: "",
@@ -100,82 +103,82 @@ export default {
       });
     },
     onRemoveTodo(todo) {
-      let i = this.note.todos.indexOf(todo);
-      this.note.todos.splice(i, 1);
+      let i = this.note.todos.indexOf(todo)
+      this.note.todos.splice(i, 1)
     },
     saveNote() {
       NoteService.updateItem(this.note.noteId, this.note)
     },
     cancelEdit() {
       this.clearNote()
-      this.$router.push("/");
+      this.$router.push("/")
     },
     deleteNote() {
       NoteService.removeItem(this.noteId)
       this.clearNote()
-      this.$router.push("/");
-
+      this.$router.push("/")
     },
-    clearNote(){
+    clearNote() {
       this.note = {
         noteId: "",
         title: "",
-        todos: [],
+        todos: []
       }
     },
     undo() {
       this.watching = false;
       if (this.historyIndex > 0) {
-        this.historyIndex -= 1;
-        this.note = this.noteHistory[this.historyIndex];
+        this.historyIndex -= 1
+        this.note = this.noteHistory[this.historyIndex]
       }
     },
     redo() {
-      this.watching = false;
+      this.watching = false
       if (this.historyIndex < (this.noteHistory.length - 1)) {
-        this.historyIndex += 1;
-        this.note = this.noteHistory[this.historyIndex];
+        this.historyIndex += 1
+        this.note = this.noteHistory[this.historyIndex]
       }
     },
-    async handleDeleteNote(noteId){
+    async handleDeleteNote(noteId) {
       if (await confirm('Вы действительно хотите удалить заметку?')) {
         this.deleteNote(noteId)
-        } 
+      } 
     },
-    async handleCancelEdit(noteId){
+    async handleCancelEdit(noteId) {
       if (await confirm('Вы действительно хотите прекратить  редактирование?')) {
         this.cancelEdit(noteId)
-        } 
+      } 
     },
   },
+  //сохранение истории изменений заметок, кроме отмены и повтора
   watch: {
     note: {
       handler: function(val) {
         if (this.watching) {
-          this.noteHistory.push(JSON.parse(JSON.stringify(val)));
-          this.historyIndex = this.noteHistory.length - 1;
+          this.noteHistory.push(JSON.parse(JSON.stringify(val)))
+          this.historyIndex = this.noteHistory.length - 1
         } else {
-          this.watching = true;
+          this.watching = true
         }
       },
-      deep: true,
+      deep: true
     },
   },
-    
-  async beforeRouteLeave (to, from, next) {
-    if (await confirm('Вы точно хотите покинуть страницу',
-       'Не сохраненные действия будут потеряны')) {
-        this.clearNote()
-        next()
-      } else{
-        next(from)
-      }
+  //безопасное перенаправление со страницы  
+  async beforeRouteLeave (_to, from, next) {
+    if (await confirm('Вы точно хотите покинуть страницу?',
+      'Не сохраненные действия будут потеряны')) {
+      this.clearNote()
+      next()
+    } else {
+      next(from)
+    }
   }
 };
 </script>
 
-<style>
-.new-todo{
+<style scoped>
+.new-todo {
   display: flex;
   justify-content: flex-start;
   background-color: #e2e2e2;

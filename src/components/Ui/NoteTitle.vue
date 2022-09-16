@@ -4,13 +4,13 @@
     <br />
     <div class="title-block" v-if="!editable">
         {{ note.title }}
-      <icon-button
+      <IconButton
         color="orange"
         type="edit"
         label="Edit"
         @action="editable = !editable"
       >
-      </icon-button>
+      </IconButton>
     </div>
     <input
       v-else
